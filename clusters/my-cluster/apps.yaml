@@ -2,14 +2,14 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
   name: apps
-  namespace: flux-system
+  namespace: flux-system-1
 spec:
   interval: 30m0s
   dependsOn:
     - name: istio-system
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux-system-1
   path: ./apps
   prune: true
   validation: client

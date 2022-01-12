@@ -22,17 +22,17 @@ jobs:
         run: flux install
       - name: Setup cluster reconciliation
         run: |
-          flux create source git flux-system \
+          flux create source git flux-system-1 \
           --url=${{ github.event.repository.html_url }} \
           --branch=${GITHUB_REF#refs/heads/}
-          flux create kustomization flux-system \
-          --source=flux-system \
+          flux create kustomization flux-system-1 \
+          --source=flux-system-1 \
           --path=./clusters/my-cluster
       - name: Verify cluster reconciliation
         run: |
-          kubectl -n flux-system wait kustomization/istio-operator --for=condition=ready --timeout=2m
-          kubectl -n flux-system wait kustomization/istio-system --for=condition=ready --timeout=2m
-          kubectl -n flux-system wait kustomization/apps --for=condition=ready --timeout=2m
+          kubectl -n flux-system-1 wait kustomization/istio-operator --for=condition=ready --timeout=2m
+          kubectl -n flux-system-1 wait kustomization/istio-system --for=condition=ready --timeout=2m
+          kubectl -n flux-system-1 wait kustomization/apps --for=condition=ready --timeout=2m
           kubectl -n prod wait canary/frontend --for=condition=promoted --timeout=1m
           kubectl -n prod rollout status deployment/frontend --timeout=1m
           kubectl -n prod wait canary/backend --for=condition=promoted --timeout=1m
@@ -57,10 +57,10 @@ jobs:
       - name: Debug failure
         if: failure()
         run: |
-          kubectl -n flux-system get all
-          kubectl -n flux-system logs deploy/source-controller
-          kubectl -n flux-system logs deploy/kustomize-controller
-          kubectl -n flux-system logs deploy/helm-controller
+          kubectl -n flux-system-1 get all
+          kubectl -n flux-system-1 logs deploy/source-controller
+          kubectl -n flux-system-1 logs deploy/kustomize-controller
+          kubectl -n flux-system-1 logs deploy/helm-controller
           kubectl -n istio-system logs deployment/flagger
           kubectl -n istio-operator get all
           kubectl -n istio-system get all

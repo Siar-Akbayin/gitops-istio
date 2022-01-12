@@ -107,14 +107,14 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
   name: apps
-  namespace: flux-system
+  namespace: flux-system-1
 spec:
   interval: 30m0s
   dependsOn:
     - name: istio-system
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux-system-1
   path: ./apps
 ```
 
@@ -246,7 +246,7 @@ git push origin main
 Tell Flux to pull the changes or wait one minute for Flux to detect the changes on its own:
 
 ```bash
-flux reconcile source git flux-system
+flux reconcile source git flux-system-1
 ```
 
 Watch Flux reconciling your cluster to the latest commit:
@@ -323,7 +323,7 @@ git add -A && \
 git commit -m "frontend 5.0.1" && \
 git push origin main
 
-flux reconcile source git flux-system
+flux reconcile source git flux-system-1
 ```
 
 Flagger detects that the deployment revision changed and starts the A/B testing:
