@@ -103,7 +103,7 @@ For example, in [clusters/my-cluster/apps.yaml](https://github.com/stefanprodan/
 we tell Flux that the `apps` reconciliation depends on the `istio-system` one:
 
 ```yaml
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
   name: apps

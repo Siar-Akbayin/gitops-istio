@@ -9,7 +9,7 @@ metadata:
 spec:
   minReadySeconds: 5
   revisionHistoryLimit: 5
-  progressDeadlineSeconds: 65
+  progressDeadlineSeconds: 60
   strategy:
     rollingUpdate:
       maxUnavailable: 0
@@ -55,8 +55,8 @@ spec:
             - check
             - http
             - localhost:9898/readyz
-          initialDelaySeconds: 5
-          timeoutSeconds: 5
+          initialDelaySeconds: 20
+          timeoutSeconds: 20
         resources:
           limits:
             cpu: 2000m
