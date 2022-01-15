@@ -9,7 +9,7 @@ metadata:
 spec:
   minReadySeconds: 5
   revisionHistoryLimit: 5
-  progressDeadlineSeconds: 60
+  progressDeadlineSeconds: 65
   strategy:
     rollingUpdate:
       maxUnavailable: 0
